@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pulse Pages - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .hero-overlay {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("https://via.placeholder.com/1920x600");
+        background-size: cover;
+        background-position: center;
+      }
+      .post-card:hover {
+        transform: translateY(-8px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 font-serif text-white">
+    <!-- Header -->
+    <header
+      class="bg-gradient-to-r from-gray-800 to-indigo-900 shadow sticky top-0 w-full z-10"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center"
+      >
+        <a href="index.html"
+          ><h1 class="text-2xl font-bold text-white">Pulse Pages</h1></a
+        >
+        <nav class="flex space-x-4">
+          <a href="#" class="text-gray-200 hover:text-indigo-400 text-sm"
+            >Home</a
+          >
+          <a href="#" class="text-gray-200 hover:text-indigo-400 text-sm"
+            >Categories</a
+          >
+          <a href="#" class="text-gray-200 hover:text-indigo-400 text-sm"
+            >About</a
+          >
+          <a href="#" class="text-gray-200 hover:text-indigo-400 text-sm"
+            >Contact</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-overlay py-24 text-center mb-12">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-5xl font-extrabold text-white drop-shadow-md">
+          Welcome to Pulse Pages
+        </h2>
+        <p class="mt-4 text-xl text-gray-200">
+          Ignite your mind with stories, ideas, and perspectives that pulse with
+          energy and insight.
+        </p>
+      </div>
+    </section>
+
+    <!-- Featured Posts Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+      <h3 class="text-2xl font-bold text-white mb-6">Featured Stories</h3>
+      <div id="featured-posts" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Featured posts will be dynamically inserted here -->
+      </div>
+    </section>
+
+    <!-- Recent Posts Section -->
+    <section
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-gray-800 rounded-lg"
+    >
+      <h3 class="text-2xl font-bold text-white mb-6">Recent Stories</h3>
+      <div
+        id="recent-posts"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <!-- Recent posts will be dynamically inserted here -->
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-200 py-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p>&copy; 2025 Pulse Pages. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // Sample blog post data
+      const posts = [
+        {
+          title: "Identity-Driven Fashion Starts with the Right Accent",
+          excerpt: "Explore a wide range of accessories including statement jewelry, stylish bags, empowering wristbands, bold belts, expressive headwear, and unexpected essentials like scarves, masks, wallets, and towels. These aren’t just add-ons—they’re identity-coded fashion tools that elevate your presence and sharpen your silhouette.",
+          author: "Kabir",
+          date: "October 19, 2025",
+          image: "https://i.ibb.co.com/7xHqryHq/Identity-Driven-Fashion-Starts-with-the-Right-Accent.jpg",
+          link: "/statement-jewelry-and-headwear-for-expressive-looks.html",
+          isFeatured: true,
+        },
+      ];
+
+      // Function to render posts
+      function renderPosts() {
+        const featuredContainer = document.getElementById("featured-posts");
+        const recentContainer = document.getElementById("recent-posts");
+
+        // Clear containers
+        featuredContainer.innerHTML = "";
+        recentContainer.innerHTML = "";
+
+        // Render featured posts
+        posts
+          .filter((post) => post.isFeatured)
+          .forEach((post) => {
+            const postElement = document.createElement("div");
+            postElement.className =
+              "post-card bg-gray-700 rounded-lg shadow overflow-hidden";
+            postElement.innerHTML = `
+                    <img src="${post.image}"  class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold text-white"><a href="${post.link}" class="hover:text-indigo-400">${post.title}</a></h4>
+                        <p class="text-gray-200 mt-2">${post.excerpt}</p>
+                        <p class="text-sm text-gray-400 mt-4">By ${post.author} | ${post.date}</p>
+                    </div>
+                `;
+            featuredContainer.appendChild(postElement);
+          });
+
+        // Render recent posts
+        posts
+          .filter((post) => !post.isFeatured)
+          .forEach((post) => {
+            const postElement = document.createElement("div");
+            postElement.className =
+              "post-card bg-gray-600 rounded-lg shadow overflow-hidden";
+            postElement.innerHTML = `
+                    <img src="${post.image}" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h4 class="text-lg font-semibold text-white"><a href="${post.link}" class="hover:text-indigo-400">${post.title}</a></h4>
+                        <p class="text-gray-200 mt-2 text-sm">${post.excerpt}</p>
+                        <p class="text-sm text-gray-400 mt-3">By ${post.author} | ${post.date}</p>
+                    </div>
+                `;
+            recentContainer.appendChild(postElement);
+          });
+      }
+
+      // Initialize rendering
+      document.addEventListener("DOMContentLoaded", renderPosts);
+    </script>
+  </body>
+</html>
